@@ -8,6 +8,8 @@ let socket;
 const Chat = ({location}) => {
     const [name, setName] = useState('');
     const [room, setRoom] = useState('');
+    const [message, setMessage] = useState('');
+    const [messages, setMessages] = useState([]);
     const endpoint =  'localhost:5000';
     useEffect(()=>{
         const {name, room} = qString.parse(location.search);
@@ -15,7 +17,8 @@ const Chat = ({location}) => {
         setName(name);
         setRoom(room);
         
-        socket.emit('join', {name, room}, ({})=>{
+        socket.emit('join', {name, room}, ()=>{
+
         });
 
         return ()=>{
@@ -24,10 +27,32 @@ const Chat = ({location}) => {
         }
     }, [endpoint, location.search]);
 
+    useEffect(()=>{
+        socket.on('Message', (text) => {
+            setMessages([...messages, text]);
+        });
+    }, [messages]);
+
+    const sendMessage = (event) =>{
+        event.preventDefault();
+        if(message){
+            socket.emit('SendMessage', message, () => {
+                setMessage('');
+            });
+        }
+    }
+
+    console.log(message, messages);
+
 
     return(
-        <div>
-
+        <div className='chat-container'>
+            <div className='chat-inner'>
+                <input value={message} 
+                onChange={(event)=>setMessage(event.target.value)} 
+                onKeyPress={(event)=> event.key==='Enter' ? sendMessage(event) : null} 
+                />
+            </div>
         </div>
     )
 }
