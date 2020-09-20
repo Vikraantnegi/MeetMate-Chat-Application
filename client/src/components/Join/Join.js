@@ -19,7 +19,7 @@ const Join = () => {
     return(
         <div className="join-container">
             <div className="join-inner">
-                <h1 className="header">Join Here!</h1>
+                <h1 className="join-header">Join Here!</h1>
                 <div>
                     <input placeholder="What would you like to call yourself?" 
                     className="join-input" type="text" 

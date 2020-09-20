@@ -21,13 +21,13 @@
     margin: auto;
 }
 
-.header{
+.join-header{
     color: white;
     font-size: 22px;
     padding-bottom: 10px;
 }
 
-button{
+.join-inner button{
     color: white !important;
     text-transform: uppercase;
     text-decoration: none;

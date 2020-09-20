@@ -2,6 +2,8 @@ import React, {useState, useEffect} from "react";
 import qString from 'query-string';
 import io from 'socket.io-client';
 import './Chat.css';
+import Header from '../Header/Header';
+import Text from '../Text/Text';
 
 let socket;
 
@@ -48,10 +50,8 @@ const Chat = ({location}) => {
     return(
         <div className='chat-container'>
             <div className='chat-inner'>
-                <input value={message} 
-                onChange={(event)=>setMessage(event.target.value)} 
-                onKeyPress={(event)=> event.key==='Enter' ? sendMessage(event) : null} 
-                />
+                <Header room ={room}/>
+                <Text message={message} setMessage={setMessage}/>
             </div>
         </div>
     )
