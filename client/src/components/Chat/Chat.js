@@ -4,6 +4,8 @@ import io from 'socket.io-client';
 import './Chat.css';
 import Header from '../Header/Header';
 import Text from '../Text/Text';
+import MessagePortion from '../Middle/Middle';
+import Online from '../Online/Online';
 
 let socket;
 
@@ -12,6 +14,7 @@ const Chat = ({location}) => {
     const [room, setRoom] = useState('');
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
+    const [users, setUsers] = useState([]);
     const endpoint =  'localhost:5000';
     useEffect(()=>{
         const {name, room} = qString.parse(location.search);
@@ -19,40 +22,39 @@ const Chat = ({location}) => {
         setName(name);
         setRoom(room);
         
-        socket.emit('join', {name, room}, ()=>{
-
+        socket.emit('join', {name, room}, (error) => {
+            if(error) {
+              alert(error);
+            }
         });
-
-        return ()=>{
-            socket.emit('disconnect');
-            socket.off();
-        }
     }, [endpoint, location.search]);
 
     useEffect(()=>{
-        socket.on('Message', (text) => {
-            setMessages([...messages, text]);
+        socket.on('message', message => {
+            setMessages([...messages, message]);
+        });
+        socket.on("roomData", ({ users }) => {
+            setUsers(users);
         });
     }, [messages]);
 
     const sendMessage = (event) =>{
         event.preventDefault();
         if(message){
-            socket.emit('SendMessage', message, () => {
+            socket.emit('sendMessage', message, () => {
                 setMessage('');
             });
         }
     }
 
-    console.log(message, messages);
-
-
     return(
         <div className='chat-container'>
             <div className='chat-inner'>
                 <Header room ={room}/>
-                <Text message={message} setMessage={setMessage}/>
+                <MessagePortion messages={messages} name={name} />
+                <Text message={message} setMessage={setMessage} sendMessage={sendMessage} />
             </div>
+            <Online users={users} />
         </div>
     )
 }
