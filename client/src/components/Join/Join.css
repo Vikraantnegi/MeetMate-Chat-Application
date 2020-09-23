@@ -11,6 +11,7 @@
 .join-inner{
     background-color:white;
     width: 30%;
+    margin: auto;
 }
 
 .join-input{
@@ -50,16 +51,6 @@
     margin-top: 30px;
 }
 
-@media (min-width: 320px) and (max-width: 480px) {
-    .join-container {
-        height: 100%;
-    }
-  
-    .join-inner {
-        width: 90%;
-    }
-}
-
 .illust{    
     background-color: #A59BFA;
     padding: 30px; 
@@ -75,4 +66,24 @@ button:focus {
 
 .formup{
     padding: 30px 50px;
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+    .join-container {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        margin: auto;
+    }
+  
+    .join-inner {
+        width: 80%;
+    }
+    .join-input{
+        width: 80%;
+        font-size: 12px;
+    }
+    .formup{
+        padding: 30px;
+    }
 }
