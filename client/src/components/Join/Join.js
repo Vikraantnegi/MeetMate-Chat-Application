@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {Link} from 'react-router-dom';
 import './Join.css';
+import Illust from "../../icons/undraw_Connecting_Teams_8ntu.svg";
 
 const Join = () => {
 
@@ -17,24 +18,29 @@ const Join = () => {
     };
 
     return(
-        <div className="join-container">
-            <div className="join-inner">
-                <h1 className="join-header">Join Here!</h1>
-                <div>
-                    <input placeholder="What would you like to call yourself?" 
-                    className="join-input" type="text" 
-                    onChange={(event)=>setName(event.target.value)}
-                    onKeyPress={handleKeyPress1} />
+        <div className="join-container">    
+            <div className="join-inner">    
+                <div className="illust">
+                    <img src={Illust} alt="" /> 
                 </div>
-                <div>
-                    <input placeholder="Where would you like to talk?" 
-                    className="join-input mt-20" type="text" 
-                    onChange={(event)=>setRoom(event.target.value)}
-                    onKeyPress={handleKeyPress} />
-                </div>
-                <Link onClick={event => (!name || !room) ? event.preventDefault() : null} to={`/chat?name=${name}&room=${room}`}>
-                    <button className="join-button mt-30" type="submit">Lets Chat!</button>
-                </Link>
+                <div className="formup">
+                    <h1 className="join-header">Join Here!</h1>
+                    <div>
+                        <input placeholder="What would you like to call yourself?" 
+                        className="join-input" type="text" 
+                        onChange={(event)=>setName(event.target.value)}
+                        onKeyPress={handleKeyPress1} />
+                    </div>
+                    <div>
+                        <input placeholder="Where would you like to talk?" 
+                        className="join-input mt-20" type="text" 
+                        onChange={(event)=>setRoom(event.target.value)}
+                        onKeyPress={handleKeyPress} />
+                    </div>
+                    <Link onClick={event => (!name || !room) ? event.preventDefault() : null} to={`/chat?name=${name}&room=${room}`}>
+                        <button className="join-button mt-30" type="submit">Lets Chat!</button>
+                    </Link>
+                </div>                
             </div>
         </div>
     )
